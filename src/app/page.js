@@ -29,15 +29,11 @@ export default function LandingPage() {
           Stay healthy.
         </h1>
         
-        <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mb-4">
+        <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mb-10">
           AroFit connects people with real trainers for real results. No more guessing—just personalized guidance.
         </p>
-
-        <p className="text-lg md:text-xl font-bold text-emerald-500 max-w-2xl mb-12">
-          Book real trainers to your home — not just online workouts.
-        </p>
         
-        <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full max-w-xl mx-auto">
+        <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 w-full max-w-xl mx-auto">
           <Link href="/signup?role=client" className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 hover:scale-105 transition-all text-zinc-950 font-bold px-8 py-4 rounded-xl flex items-center justify-center space-x-2 shadow-lg shadow-emerald-500/20">
             <span>Find Trainers Near You</span>
             <ArrowRight size={20} />
@@ -46,6 +42,10 @@ export default function LandingPage() {
             <span>Join as a Trainer</span>
           </Link>
         </div>
+
+        <p className="text-lg md:text-xl font-bold text-emerald-500 max-w-2xl mt-8">
+          Book real trainers to your home — not just online workouts.
+        </p>
       </main>
 
       {/* How It Works Section */}
