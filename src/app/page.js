@@ -34,16 +34,16 @@ export default function LandingPage() {
         </p>
 
         <p className="text-lg md:text-xl font-bold text-emerald-500 max-w-2xl mb-12">
-          👉 Book real trainers to your home — not just online workouts.
+          Book real trainers to your home — not just online workouts.
         </p>
         
         <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full max-w-xl mx-auto">
           <Link href="/signup?role=client" className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 hover:scale-105 transition-all text-zinc-950 font-bold px-8 py-4 rounded-xl flex items-center justify-center space-x-2 shadow-lg shadow-emerald-500/20">
-            <span>🔥 Find Trainers Near You</span>
+            <span>Find Trainers Near You</span>
             <ArrowRight size={20} />
           </Link>
           <Link href="/signup?role=trainer" className="w-full sm:w-auto bg-zinc-800 hover:bg-zinc-700 hover:scale-105 transition-all text-slate-200 font-bold px-8 py-4 rounded-xl flex items-center justify-center shadow-lg">
-            <span>🔥 Join as a Trainer</span>
+            <span>Join as a Trainer</span>
           </Link>
         </div>
       </main>
