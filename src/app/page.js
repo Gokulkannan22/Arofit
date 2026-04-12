@@ -1,65 +1,83 @@
-import Image from "next/image";
+import Link from 'next/link';
+import { Home, MapPin, ShieldCheck, ArrowRight } from 'lucide-react';
 
-export default function Home() {
+export default function LandingPage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="flex flex-col min-h-screen bg-zinc-950 text-slate-50">
+      
+      {/* Navigation */}
+      <nav className="flex items-center justify-between p-6 max-w-7xl mx-auto w-full">
+        <div className="text-emerald-500 font-bold text-2xl tracking-tighter uppercase relative">
+          AroFit
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="flex items-center space-x-4">
+          <Link href="/login" className="text-slate-300 hover:text-white transition-colors text-sm font-medium">Log In</Link>
+          <Link href="/signup" className="bg-emerald-500 hover:bg-emerald-600 text-zinc-950 px-5 py-2 rounded-full text-sm font-bold transition-all">Sign Up</Link>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <main className="flex-1 flex flex-col justify-center items-center text-center px-4 md:px-8 mt-12 mb-24">
+        <div className="inline-flex items-center space-x-2 bg-zinc-900 border border-zinc-800 rounded-full px-4 py-1.5 mb-8">
+          <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span className="text-xs font-medium text-slate-300">Kerala’s Personal Trainer Marketplace</span>
+        </div>
+        
+        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight max-w-4xl mb-6">
+          Find your trainer. <br className="hidden md:block"/>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-600">Train your way.</span> <br/>
+          Stay healthy.
+        </h1>
+        
+        <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mb-12">
+          AroFit connects people with real trainers for real results. No more guessing—just personalized guidance.
+        </p>
+        
+        <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 w-full max-w-md mx-auto">
+          <Link href="/signup?role=client" className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-600 hover:scale-105 transition-all text-zinc-950 font-bold px-8 py-4 rounded-xl flex items-center justify-center space-x-2 shadow-lg shadow-emerald-500/20">
+            <span>Find Trainers</span>
+            <ArrowRight size={20} />
+          </Link>
+          <Link href="/signup?role=trainer" className="w-full sm:w-auto bg-zinc-800 hover:bg-zinc-700 hover:scale-105 transition-all text-slate-200 font-bold px-8 py-4 rounded-xl flex items-center justify-center shadow-lg">
+            <span>Become a Trainer</span>
+          </Link>
         </div>
       </main>
+
+      {/* USP Section */}
+      <section className="bg-zinc-900 border-t border-zinc-800 py-24 px-6 md:px-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+            <div className="flex flex-col items-center md:items-start">
+              <div className="h-16 w-16 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-6 border border-emerald-500/20">
+                <Home className="text-emerald-500 h-8 w-8" />
+              </div>
+              <h3 className="text-2xl font-bold mb-3 text-white">Home Training</h3>
+              <p className="text-slate-400 leading-relaxed">Trainers come directly to your home. Fitness at your doorstep designed for real-life schedules and optimal comfort.</p>
+            </div>
+            <div className="flex flex-col items-center md:items-start">
+              <div className="h-16 w-16 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-6 border border-emerald-500/20">
+                <MapPin className="text-emerald-500 h-8 w-8" />
+              </div>
+              <h3 className="text-2xl font-bold mb-3 text-white">Kerala Focus</h3>
+              <p className="text-slate-400 leading-relaxed">A marketplace built explicitly for Kerala, serving high-density areas like Kochi and Alleppey to ensure proximity.</p>
+            </div>
+            <div className="flex flex-col items-center md:items-start">
+              <div className="h-16 w-16 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-6 border border-emerald-500/20">
+                <ShieldCheck className="text-emerald-500 h-8 w-8" />
+              </div>
+              <h3 className="text-2xl font-bold mb-3 text-white">Verified Trainers</h3>
+              <p className="text-slate-400 leading-relaxed">Every trainer has a professional profile, showcasing real certifications, real results, and targeted specializations.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 text-center text-slate-500 text-sm border-t border-zinc-800 bg-zinc-950">
+        <p>© 2026 AroFit. Kerala's Personal Trainer Marketplace.</p>
+      </footer>
+
     </div>
   );
 }
