@@ -2,7 +2,7 @@
 import { useState, Suspense } from "react";
 import { auth, db } from "@/lib/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, collection, query, where, getDocs } from "firebase/firestore";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from 'next/link';
 import { ArrowRight, Loader2 } from 'lucide-react';
@@ -30,9 +30,28 @@ function SignupForm() {
 
       await updateProfile(user, { displayName: name });
 
+      // Generate Unique Username
+      let baseUsername = name.toLowerCase().replace(/[^a-z0-9]/g, "");
+      if (!baseUsername) baseUsername = "user";
+      
+      let finalUsername = baseUsername;
+      let isUnique = false;
+      
+      while (!isUnique) {
+        const usernameQuery = query(collection(db, "users"), where("username", "==", finalUsername));
+        const usernameSnap = await getDocs(usernameQuery);
+        
+        if (usernameSnap.empty) {
+           isUnique = true;
+        } else {
+           finalUsername = `${baseUsername}${Math.floor(1000 + Math.random() * 9000)}`;
+        }
+      }
+
       const userDoc = {
         uid: user.uid,
         name: name,
+        username: finalUsername,
         email: email,
         role: role,
         createdAt: new Date().toISOString(),
@@ -44,6 +63,7 @@ function SignupForm() {
         await setDoc(doc(db, "trainers", user.uid), {
           uid: user.uid,
           name: name,
+          username: finalUsername,
           bio: "",
           specializations: [],
           pricing_session: 500,
