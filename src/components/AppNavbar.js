@@ -21,9 +21,13 @@ export default function AppNavbar() {
           AroFit
         </Link>
         <div className="flex items-center space-x-6">
-          {userData?.role !== 'trainer' && (
+          {userData?.role !== 'trainer' ? (
              <Link href="/progress" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
                Progress
+             </Link>
+          ) : (
+             <Link href="/trainer/profile/edit" className="text-sm font-bold text-emerald-500 hover:text-emerald-400 transition-colors bg-emerald-500/10 px-4 py-2 rounded-lg border border-emerald-500/20">
+               Edit Profile
              </Link>
           )}
           <span className="text-sm text-slate-400 font-medium hidden sm:block">Hello, {userData?.name || 'User'}</span>
