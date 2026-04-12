@@ -103,9 +103,13 @@ export default function TrainerProfile({ params }) {
                   
                   {/* Large Avatar */}
                   <div className="relative group mb-6 md:mb-0 w-max mx-auto md:mx-0">
-                    <div className="h-28 w-28 rounded-full bg-emerald-500 flex items-center justify-center font-extrabold text-zinc-900 text-5xl shadow-lg border-4 border-emerald-400">
-                      {initial}
-                    </div>
+                    {trainer.imageBase64 ? (
+                      <img src={trainer.imageBase64} alt={trainer.name} className="h-28 w-28 rounded-full object-cover shadow-lg border-4 border-emerald-400" />
+                    ) : (
+                      <div className="h-28 w-28 rounded-full bg-emerald-500 flex items-center justify-center font-extrabold text-zinc-900 text-5xl shadow-lg border-4 border-emerald-400">
+                        {initial}
+                      </div>
+                    )}
                     {/* Verified Badge Big */}
                     <div className="absolute bottom-0 right-0 bg-zinc-900 rounded-full p-1 shadow-md">
                        <BadgeCheck size={28} className="text-blue-400 fill-blue-400/20" />
@@ -128,19 +132,32 @@ export default function TrainerProfile({ params }) {
                        </span>
                     </div>
 
-                    <button className="flex items-center text-xs font-bold text-emerald-500 mb-2 bg-emerald-500/10 px-4 py-2 rounded-xl border border-emerald-500/20 hover:bg-emerald-500 hover:text-zinc-950 transition-colors mx-auto md:mx-0">
-                       <PlayCircle size={16} className="mr-2"/> View 10 sec intro video
-                    </button>
+                    {(trainer.introVideoUrl || "").includes("http") ? (
+                      <a href={trainer.introVideoUrl} target="_blank" rel="noreferrer" className="flex items-center text-xs font-bold text-emerald-500 mb-2 bg-emerald-500/10 px-4 py-2 rounded-xl border border-emerald-500/20 hover:bg-emerald-500 hover:text-zinc-950 transition-colors mx-auto md:mx-0 w-max">
+                         <PlayCircle size={16} className="mr-2"/> Watch Intro Video
+                      </a>
+                    ) : (
+                      <button className="flex items-center text-xs font-bold text-emerald-500 mb-2 bg-emerald-500/10 px-4 py-2 rounded-xl border border-emerald-500/20 hover:bg-emerald-500 hover:text-zinc-950 transition-colors mx-auto md:mx-0">
+                         <PlayCircle size={16} className="mr-2"/> View 10 sec intro video
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
 
-              {/* Bio Card */}
+              {/* Bio & Certs Card */}
               <div className="bg-zinc-900 rounded-3xl p-8 border border-zinc-800 shadow-md">
                 <h2 className="text-xl font-bold mb-4 flex items-center"><CheckCircle className="mr-2 text-emerald-500" size={20}/> About Me</h2>
-                <p className="text-slate-300 leading-relaxed whitespace-pre-wrap font-medium">
+                <p className="text-slate-300 leading-relaxed whitespace-pre-wrap font-medium mb-6">
                   {trainer.bio || bioFallback}
                 </p>
+                
+                {trainer.certifications && (
+                   <>
+                     <h3 className="text-sm uppercase tracking-widest font-extrabold text-emerald-500 mb-3 border-t border-zinc-800 pt-6">Credentials</h3>
+                     <p className="text-slate-400 text-sm font-medium whitespace-pre-wrap leading-relaxed">{trainer.certifications}</p>
+                   </>
+                )}
               </div>
 
               {/* Reviews Card (Trust System) */}
@@ -190,7 +207,20 @@ export default function TrainerProfile({ params }) {
                  </div>
 
                  <h2 className="text-2xl font-extrabold mb-2 mt-6">Book a Session</h2>
-                 <p className="text-emerald-500 font-extrabold text-3xl mb-8">₹{trainer.pricing_session} <span className="text-slate-500 text-sm font-medium">/ session</span></p>
+                 <p className="text-emerald-500 font-extrabold text-3xl mb-1">₹{trainer.pricing_session} <span className="text-slate-500 text-sm font-medium">/ session</span></p>
+                 {trainer.pricing_monthly > 0 && <p className="text-slate-400 font-bold text-sm mb-6">Or ₹{trainer.pricing_monthly} monthly package</p>}
+                 {!trainer.pricing_monthly && <div className="mb-6"></div>}
+
+                 {trainer.packageIncludes && trainer.packageIncludes.length > 0 && (
+                    <div className="mb-8 border border-zinc-800 bg-zinc-950 rounded-2xl p-4">
+                       <p className="text-xs uppercase tracking-widest font-bold text-slate-500 mb-3">Package Includes</p>
+                       <ul className="space-y-2">
+                         {trainer.packageIncludes.map(pkg => (
+                           <li key={pkg} className="flex items-center text-sm text-slate-300 font-medium whitespace-nowrap"><CheckCircle size={14} className="text-emerald-500 mr-2 shrink-0"/> {pkg}</li>
+                         ))}
+                       </ul>
+                    </div>
+                 )}
                  
                  {bookingSuccess ? (
                     <div className="bg-emerald-500/10 border border-emerald-500/30 p-8 rounded-2xl text-center shadow-inner">
@@ -221,6 +251,9 @@ export default function TrainerProfile({ params }) {
                              <button type="button" onClick={()=>setMode("gym")} className={`py-2.5 rounded-xl text-sm font-extrabold border shadow-sm transition-all ${mode==='gym'?'bg-emerald-500 border-emerald-500 text-zinc-950 scale-105':'bg-zinc-950 border-zinc-800 text-slate-400 hover:border-zinc-600'}`}>Gym</button>
                            )}
                         </div>
+                        {mode === 'home' && trainer.travelRadius && (
+                           <p className="text-xs text-yellow-500 mt-2 font-medium bg-yellow-500/10 px-2 py-1.5 rounded border border-yellow-500/20">Trainer travels up to {trainer.travelRadius} km from their base location.</p>
+                        )}
                       </div>
                       
                       <button type="submit" disabled={bookingLoading || !mode} className="w-full bg-emerald-500 hover:bg-emerald-600 disabled:opacity-50 text-zinc-950 font-extrabold px-6 py-4 rounded-xl flex items-center justify-center transition-all mt-6 shadow-xl shadow-emerald-500/20 text-lg">
