@@ -8,8 +8,8 @@ export default function LandingPage() {
       {/* Navigation */}
       <nav className="flex items-center justify-between p-6 max-w-7xl mx-auto w-full">
         <Link href="/" className="flex items-center hover:scale-105 transition-transform focus:outline-none">
-          <img src="/symbol_transparent.png" alt="AroFit Symbol" className="h-9 w-auto mr-2 object-contain" />
-          <span className="text-emerald-500 font-extrabold text-2xl tracking-tighter uppercase">AroFit</span>
+          <img src="/symbol_transparent.png" alt="AroFit Symbol" className="h-12 w-auto mr-3 object-contain" />
+          <span className="font-extrabold text-3xl tracking-tighter uppercase"><span className="text-white">ARO</span><span className="text-emerald-500">FIT</span></span>
         </Link>
         <div className="flex items-center space-x-4">
           <Link href="/login" className="text-slate-300 hover:text-white transition-colors text-sm font-medium">Log In</Link>

@@ -175,8 +175,8 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-950 p-4">
       <Link href="/" className="absolute top-8 left-8 flex items-center hover:scale-105 transition-transform focus:outline-none">
-        <img src="/symbol_transparent.png" alt="AroFit Symbol" className="h-9 w-auto mr-2 object-contain" />
-        <span className="text-emerald-500 font-extrabold text-2xl tracking-tighter uppercase">AroFit</span>
+        <img src="/symbol_transparent.png" alt="AroFit Symbol" className="h-12 w-auto mr-3 object-contain" />
+        <span className="font-extrabold text-3xl tracking-tighter uppercase"><span className="text-white">ARO</span><span className="text-emerald-500">FIT</span></span>
       </Link>
       <Suspense fallback={<Loader2 className="animate-spin text-emerald-500" size={32} />}>
         <SignupForm />

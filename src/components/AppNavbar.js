@@ -18,8 +18,8 @@ export default function AppNavbar() {
     <nav className="border-b border-zinc-800 bg-zinc-950 p-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link href={userData?.role === 'trainer' ? '/trainer-dashboard' : '/dashboard'} className="flex items-center hover:scale-105 transition-transform focus:outline-none">
-          <img src="/symbol_transparent.png" alt="AroFit Symbol" className="h-7 w-auto mr-2 object-contain" />
-          <span className="text-emerald-500 font-extrabold text-xl tracking-tighter uppercase">AroFit</span>
+          <img src="/symbol_transparent.png" alt="AroFit Symbol" className="h-10 w-auto mr-2 object-contain" />
+          <span className="font-extrabold text-2xl tracking-tighter uppercase"><span className="text-white">ARO</span><span className="text-emerald-500">FIT</span></span>
         </Link>
         <div className="flex items-center space-x-6">
           {userData?.role !== 'trainer' ? (
