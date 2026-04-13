@@ -7,8 +7,8 @@ export default function LandingPage() {
       
       {/* Navigation */}
       <nav className="flex items-center justify-between p-6 max-w-7xl mx-auto w-full">
-        <Link href="/" className="focus:outline-none">
-          <img src="/logo.png" alt="AroFit Logo" className="h-8 md:h-10 object-contain hover:scale-105 transition-transform" />
+        <Link href="/" className="text-emerald-500 font-extrabold text-2xl tracking-tighter uppercase hover:scale-105 transition-transform">
+          AroFit
         </Link>
         <div className="flex items-center space-x-4">
           <Link href="/login" className="text-slate-300 hover:text-white transition-colors text-sm font-medium">Log In</Link>
