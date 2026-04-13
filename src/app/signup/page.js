@@ -174,8 +174,8 @@ function SignupForm() {
 export default function SignupPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-950 p-4">
-      <Link href="/" className="absolute top-8 left-8 text-emerald-500 font-bold text-2xl tracking-tighter uppercase">
-        AroFit
+      <Link href="/" className="absolute top-8 left-8 focus:outline-none">
+        <img src="/logo.png" alt="AroFit Logo" className="h-8 md:h-10 object-contain hover:scale-105 transition-transform" />
       </Link>
       <Suspense fallback={<Loader2 className="animate-spin text-emerald-500" size={32} />}>
         <SignupForm />

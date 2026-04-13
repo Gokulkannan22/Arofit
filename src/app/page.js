@@ -7,9 +7,9 @@ export default function LandingPage() {
       
       {/* Navigation */}
       <nav className="flex items-center justify-between p-6 max-w-7xl mx-auto w-full">
-        <div className="text-emerald-500 font-bold text-2xl tracking-tighter uppercase relative">
-          AroFit
-        </div>
+        <Link href="/" className="focus:outline-none">
+          <img src="/logo.png" alt="AroFit Logo" className="h-8 md:h-10 object-contain hover:scale-105 transition-transform" />
+        </Link>
         <div className="flex items-center space-x-4">
           <Link href="/login" className="text-slate-300 hover:text-white transition-colors text-sm font-medium">Log In</Link>
           <Link href="/signup" className="bg-emerald-500 hover:bg-emerald-600 text-zinc-950 px-5 py-2 rounded-full text-sm font-bold transition-all">Sign Up</Link>
