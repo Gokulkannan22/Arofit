@@ -17,8 +17,12 @@ export default function AppNavbar() {
   return (
     <nav className="border-b border-zinc-800 bg-zinc-950 p-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <Link href={userData?.role === 'trainer' ? '/trainer-dashboard' : '/dashboard'} className="text-emerald-500 font-extrabold text-2xl tracking-tighter uppercase hover:scale-105 transition-transform">
-          AroFit
+        <Link href={userData?.role === 'trainer' ? '/trainer-dashboard' : '/dashboard'} className="flex items-center hover:scale-105 transition-transform focus:outline-none">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-500 h-6 w-6 mr-1.5">
+            <path d="M12 2L3 22h18L12 2z" />
+            <circle cx="12" cy="15" r="3" className="fill-zinc-950 stroke-emerald-500"/>
+          </svg>
+          <span className="text-emerald-500 font-extrabold text-xl tracking-tighter uppercase">AroFit</span>
         </Link>
         <div className="flex items-center space-x-6">
           {userData?.role !== 'trainer' ? (
