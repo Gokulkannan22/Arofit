@@ -209,13 +209,27 @@ export default function ClientDashboard() {
             <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4 bg-zinc-900/50 p-4 rounded-2xl border border-zinc-800/50">
                <h2 className="text-2xl font-bold flex items-center"><Filter className="mr-2 text-emerald-500" size={20}/> Find Your Trainer</h2>
                <div className="flex flex-col sm:flex-row gap-3">
-                 <input 
-                   type="text" 
-                   placeholder="Location (e.g. Kochi)" 
+                 <select 
                    value={locationFilter}
                    onChange={e => setLocationFilter(e.target.value)}
-                   className="bg-zinc-950 border border-zinc-700 rounded-lg px-4 py-2 text-sm text-white focus:border-emerald-500 outline-none"
-                 />
+                   className="bg-zinc-950 border border-zinc-700 rounded-lg px-4 py-2 text-sm text-slate-300 focus:border-emerald-500 outline-none"
+                 >
+                   <option value="">All Regions</option>
+                   <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                   <option value="Kollam">Kollam</option>
+                   <option value="Pathanamthitta">Pathanamthitta</option>
+                   <option value="Alappuzha">Alappuzha</option>
+                   <option value="Kottayam">Kottayam</option>
+                   <option value="Idukki">Idukki</option>
+                   <option value="Ernakulam">Ernakulam (Kochi)</option>
+                   <option value="Thrissur">Thrissur</option>
+                   <option value="Palakkad">Palakkad</option>
+                   <option value="Malappuram">Malappuram</option>
+                   <option value="Kozhikode">Kozhikode</option>
+                   <option value="Wayanad">Wayanad</option>
+                   <option value="Kannur">Kannur</option>
+                   <option value="Kasaragod">Kasaragod</option>
+                 </select>
                  <select 
                    value={modeFilter} 
                    onChange={e => setModeFilter(e.target.value)}

@@ -200,8 +200,24 @@ export default function EditProfile() {
                     <input type="text" required value={formData.name} onChange={e=>setFormData({...formData, name: e.target.value})} className="w-full bg-zinc-950 border border-zinc-700 rounded-xl px-4 py-3 text-white focus:border-emerald-500 outline-none font-medium"/>
                  </div>
                  <div>
-                    <label className="block text-sm font-bold text-slate-300 mb-2">Location (City)</label>
-                    <input type="text" required value={formData.location} onChange={e=>setFormData({...formData, location: e.target.value})} placeholder="e.g., Kochi" className="w-full bg-zinc-950 border border-zinc-700 rounded-xl px-4 py-3 text-white focus:border-emerald-500 outline-none font-medium"/>
+                    <label className="block text-sm font-bold text-slate-300 mb-2">Location (District)</label>
+                    <select required value={formData.location} onChange={e=>setFormData({...formData, location: e.target.value})} className="w-full bg-zinc-950 border border-zinc-700 rounded-xl px-4 py-3 text-white focus:border-emerald-500 outline-none font-medium">
+                       <option value="">Select District</option>
+                       <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                       <option value="Kollam">Kollam</option>
+                       <option value="Pathanamthitta">Pathanamthitta</option>
+                       <option value="Alappuzha">Alappuzha</option>
+                       <option value="Kottayam">Kottayam</option>
+                       <option value="Idukki">Idukki</option>
+                       <option value="Ernakulam">Ernakulam (Kochi)</option>
+                       <option value="Thrissur">Thrissur</option>
+                       <option value="Palakkad">Palakkad</option>
+                       <option value="Malappuram">Malappuram</option>
+                       <option value="Kozhikode">Kozhikode</option>
+                       <option value="Wayanad">Wayanad</option>
+                       <option value="Kannur">Kannur</option>
+                       <option value="Kasaragod">Kasaragod</option>
+                    </select>
                  </div>
                  <div>
                     <label className="block text-sm font-bold text-slate-300 mb-2">Years of Experience</label>
