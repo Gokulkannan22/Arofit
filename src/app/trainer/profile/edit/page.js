@@ -203,20 +203,20 @@ export default function EditProfile() {
                     <label className="block text-sm font-bold text-slate-300 mb-2">Location (District)</label>
                     <select required value={formData.location} onChange={e=>setFormData({...formData, location: e.target.value})} className="w-full bg-zinc-950 border border-zinc-700 rounded-xl px-4 py-3 text-white focus:border-emerald-500 outline-none font-medium">
                        <option value="">Select District</option>
-                       <option value="Thiruvananthapuram">Thiruvananthapuram</option>
-                       <option value="Kollam">Kollam</option>
-                       <option value="Pathanamthitta">Pathanamthitta</option>
                        <option value="Alappuzha">Alappuzha</option>
-                       <option value="Kottayam">Kottayam</option>
-                       <option value="Idukki">Idukki</option>
                        <option value="Ernakulam">Ernakulam (Kochi)</option>
-                       <option value="Thrissur">Thrissur</option>
-                       <option value="Palakkad">Palakkad</option>
-                       <option value="Malappuram">Malappuram</option>
-                       <option value="Kozhikode">Kozhikode</option>
-                       <option value="Wayanad">Wayanad</option>
+                       <option value="Idukki">Idukki</option>
                        <option value="Kannur">Kannur</option>
                        <option value="Kasaragod">Kasaragod</option>
+                       <option value="Kollam">Kollam</option>
+                       <option value="Kottayam">Kottayam</option>
+                       <option value="Kozhikode">Kozhikode</option>
+                       <option value="Malappuram">Malappuram</option>
+                       <option value="Palakkad">Palakkad</option>
+                       <option value="Pathanamthitta">Pathanamthitta</option>
+                       <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                       <option value="Thrissur">Thrissur</option>
+                       <option value="Wayanad">Wayanad</option>
                     </select>
                  </div>
                  <div>
