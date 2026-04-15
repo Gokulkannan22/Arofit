@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef, Suspense } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { db } from "@/lib/firebase";
-import { collection, query, where, orderBy, addDoc, onSnapshot } from "firebase/firestore";
+import { collection, query, where, addDoc, onSnapshot } from "firebase/firestore";
 import AppNavbar from "@/components/AppNavbar";
 import { Loader2, Send } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -28,13 +28,16 @@ function ChatRoom() {
     const roomId = [user.uid, otherUserId].sort().join("_");
     const q = query(
       collection(db, "messages"),
-      where("roomId", "==", roomId),
-      orderBy("timestamp", "asc")
+      where("roomId", "==", roomId)
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const msgs = [];
       snapshot.forEach(doc => msgs.push({ id: doc.id, ...doc.data() }));
+      
+      // Local Sort bypasses Firebase composite index requirement
+      msgs.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+      
       setMessages(msgs);
       setTimeout(() => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
     });
@@ -81,11 +84,14 @@ function ChatRoom() {
            {messages.length === 0 && <p className="text-center text-slate-500 mt-10 text-sm">Send a message to start chatting.</p>}
            {messages.map(msg => {
              const isMe = msg.senderId === user.uid;
+             const timeStr = new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+             
              return (
-               <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
-                 <div className={`max-w-[75%] p-3 rounded-2xl text-sm ${isMe ? 'bg-emerald-500 text-zinc-950 rounded-br-none font-medium' : 'bg-zinc-800 text-slate-200 rounded-bl-none'}`}>
+               <div key={msg.id} className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
+                 <div className={`max-w-[75%] p-3 rounded-2xl text-sm shadow-sm ${isMe ? 'bg-emerald-500 text-zinc-950 rounded-br-none font-bold' : 'bg-zinc-800 text-slate-200 rounded-bl-none font-medium'}`}>
                    {msg.text}
                  </div>
+                 <span className="text-[10px] text-slate-500 font-bold mt-1.5 px-1">{timeStr}</span>
                </div>
              )
            })}
