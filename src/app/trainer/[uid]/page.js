@@ -56,6 +56,7 @@ export default function TrainerProfile({ params }) {
     try {
        await addDoc(collection(db, "bookings"), {
          trainerId,
+         trainerName: trainer.name || "Trainer",
          clientId: user.uid,
          clientName: user.displayName || "Client",
          clientEmail: user.email,

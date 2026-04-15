@@ -5,7 +5,7 @@ import { db } from "@/lib/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import AppNavbar from "@/components/AppNavbar";
 import Link from "next/link";
-import { MapPin, ArrowRight, Loader2, Star, TrendingUp, Filter, CheckCircle2, ChevronRight, Activity, BadgeCheck, PlayCircle, Users } from "lucide-react";
+import { MapPin, ArrowRight, Loader2, Star, TrendingUp, Filter, CheckCircle2, ChevronRight, Activity, BadgeCheck, PlayCircle, Users, MessageCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function ClientDashboard() {
@@ -15,6 +15,7 @@ export default function ClientDashboard() {
   const [trainers, setTrainers] = useState([]);
   const [fetching, setFetching] = useState(true);
   const [latestProgress, setLatestProgress] = useState(null);
+  const [clientBookings, setClientBookings] = useState([]);
 
   // States
   const [selectedGoal, setSelectedGoal] = useState("");
@@ -37,6 +38,13 @@ export default function ClientDashboard() {
         const tList = [];
         querySnapshot.forEach((doc) => tList.push(doc.data()));
         setTrainers(tList);
+
+        const bQuery = query(collection(db, "bookings"), where("clientId", "==", user.uid));
+        const bSnap = await getDocs(bQuery);
+        let bList = [];
+        bSnap.forEach(d => bList.push({ id: d.id, ...d.data() }));
+        bList.sort((a,b) => new Date(b.date) - new Date(a.date));
+        setClientBookings(bList);
 
         const pQuery = query(
           collection(db, "progress"),
@@ -144,6 +152,42 @@ export default function ClientDashboard() {
              ))}
            </div>
         </div>
+
+        {/* Active Bookings Section */}
+        {!fetching && clientBookings.length > 0 && (
+          <div className="mb-12 border-t border-zinc-900 pt-10">
+            <div className="flex items-center justify-between mb-6">
+               <h2 className="text-2xl font-extrabold flex items-center"><Activity className="mr-2 text-emerald-500" size={24}/> Your Bookings</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+               {clientBookings.map(b => (
+                 <div key={b.id} className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 shadow-lg flex flex-col relative overflow-hidden transition-all hover:border-emerald-500/30">
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <h3 className="font-bold text-lg text-white">{b.trainerName || 'Trainer'}</h3>
+                        <p className="text-xs text-slate-400 capitalize bg-zinc-950 px-2 py-1 rounded inline-block mt-1 font-medium">{b.mode} Training <span className="mx-1">•</span> {new Date(b.date).toLocaleDateString()}</p>
+                      </div>
+                      <span className={`px-2.5 py-1 rounded-[6px] text-[10px] font-extrabold uppercase tracking-widest border
+                        ${b.status==='pending' ? 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20' : 
+                          b.status==='confirmed' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]' : 
+                          'bg-red-500/10 text-red-500 border-red-500/20'}`}>
+                          {b.status}
+                      </span>
+                    </div>
+                    {b.status === 'confirmed' ? (
+                      <Link href={`/chat?with=${b.trainerId}&name=${encodeURIComponent(b.trainerName || 'Trainer')}`} className="mt-auto w-full bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-zinc-950 py-3.5 rounded-xl text-sm font-extrabold flex items-center justify-center transition-all shadow-md shadow-emerald-500/20">
+                        <MessageCircle size={18} className="mr-2" /> Message Trainer
+                      </Link>
+                    ) : (
+                      <div className="mt-auto text-xs font-semibold text-slate-500 bg-zinc-950 border border-zinc-800 border-dashed p-3.5 rounded-xl text-center">
+                        {b.status === 'pending' ? 'Waiting for trainer to accept...' : 'This booking was cancelled.'}
+                      </div>
+                    )}
+                 </div>
+               ))}
+            </div>
+          </div>
+        )}
 
         {fetching ? (
           <div className="flex items-center space-x-2 text-emerald-500 py-12"><Loader2 className="animate-spin" size={20}/> <span>Loading trainers...</span></div>
